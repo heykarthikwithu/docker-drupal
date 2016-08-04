@@ -1,0 +1,39 @@
+version: '2'
+volumes:
+  drupal_data:
+  drupal_ssh:
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+      - "81:81"
+      - "9000:9000"
+      - "443:443"
+      - "8025:8025"
+      - "49100:22"
+    extra_hosts:
+      - "local.drupal.org:127.0.0.1"
+    links:
+      - db
+      - memcached
+    volumes:
+      - /var/www/docker-drupal/:/var/www/html/
+    environment:
+      - TERM=xterm
+  db:
+    image: mysql:5
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-utils/mysql/conf.d:/etc/mysql/conf.d
+      - drupal_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: drupal
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
