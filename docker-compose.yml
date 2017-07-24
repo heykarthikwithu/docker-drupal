@@ -2,6 +2,7 @@ version: '2'
 volumes:
   drupal_data:
   drupal_ssh:
+  drupal_solr:
 services:
   web:
     build: .
@@ -37,3 +38,13 @@ services:
     image: memcached
     ports:
       - "11211:11211"
+  solr:
+    image: solr:5.5.4
+    ports:
+     - "8983:8983"
+    volumes:
+      - drupal_solr:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore
