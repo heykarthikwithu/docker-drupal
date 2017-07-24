@@ -13,12 +13,12 @@ services:
       - "8025:8025"
       - "49100:22"
     extra_hosts:
-      - "local.drupal.org:127.0.0.1"
+      - "docker.local:127.0.0.1"
     links:
       - db
       - memcached
     volumes:
-      - /var/www/docker-drupal/:/var/www/html/
+      - /home/fridaymediagroup-drupal/experiment/:/var/www/html/
     environment:
       - TERM=xterm
   db:
