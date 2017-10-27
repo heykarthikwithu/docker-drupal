@@ -19,7 +19,7 @@ services:
       - db
       - memcached
     volumes:
-      - /home/fridaymediagroup-drupal/experiment/:/var/www/html/
+      - /var/www/experiment/:/var/www/html/
     environment:
       - TERM=xterm
   db:
