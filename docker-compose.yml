@@ -16,13 +16,13 @@ services:
     extra_hosts:
       - "docker.local:127.0.0.1"
     links:
-      - db
+      - database
       - memcached
     volumes:
       - /var/www/experiment/:/var/www/html/
     environment:
       - TERM=xterm
-  db:
+  database:
     image: mysql:5
     ports:
       - "3306:3306"
@@ -48,3 +48,17 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - mycore
+  hostmaster:
+    image: aegir/hostmaster
+    ports:
+      - "1214:1214"
+    hostname: aegir.docker.local
+    links:
+      - database
+    depends_on:
+      - database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: hostmaster
