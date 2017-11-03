@@ -1,0 +1,4 @@
+name = Docker Drupal - Kind of Dist
+description = Get enough modules to have a Dist kind of feature.
+core = 7.x
+package = Docker Drupal

@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file docker_drupal.install
+ */
+
+/**
+ * Install Dist modules.
+ *
+ * @param $sandbox
+ * @throws DrupalUpdateException
+ */
+function fmg_autosite_helper_update_7001(&$sandbox) {
+  $modules = array(
+    'search_api',
+    'search_api_facetapi',
+    'search_api_solr',
+  );
+  $modules_enabled = module_enable($modules);
+  if(!$modules_enabled) {
+    throw new DrupalUpdateException('Something went wrong..!');
+  }
+}
